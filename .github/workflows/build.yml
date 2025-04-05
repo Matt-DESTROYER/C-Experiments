@@ -27,7 +27,7 @@ jobs:
       run: git pull
 
     - name: Build
-      run: sh ./src/build.sh
+      run: sh ./build_all.sh
 
     - name: Push build
       run: |
