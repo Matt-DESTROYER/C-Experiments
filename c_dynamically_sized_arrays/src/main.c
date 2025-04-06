@@ -2,16 +2,13 @@
 
 #include "dynamic_array.h"
 
-void dynamic_arr_print_int(dynamic_array_t* array, const char* name);
-void dynamic_arr_print_char(dynamic_array_t* array, const char* name);
-
 int main(int argc, char* argv[]) {
 	/* --------------------------------------------------------------- */
 
 	printf("Demo #1\n-------\nArray of multiples of 5 of length n (input a positive integer): ");
 
-	uint_t array1_length;
-	scanf("%u", &array1_length);
+	size_t array1_length;
+	scanf("%lu", &array1_length);
 
 	// create a dynamic array
 	dynamic_array_t* array1 = make_dynamic_arr(array1_length);
@@ -22,15 +19,15 @@ int main(int argc, char* argv[]) {
 	}
 
 	// print the array
-	dynamic_arr_print_int(array1, "array1");
+	dynamic_arr_print(array1, "array1", 'i');
 	printf("\n\n");
 
 	/* --------------------------------------------------------------- */
 
 	printf("Demo #2\n-------\nArray of chars of length n (input a positive integer): ");
 
-	uint_t array2_length;
-	scanf("%u", &array2_length);
+	size_t array2_length;
+	scanf("%lu", &array2_length);
 
 	// create another dynamic array
 	dynamic_array_t* array2 = make_dynamic_arr(array2_length);
@@ -41,15 +38,15 @@ int main(int argc, char* argv[]) {
 	}
 
 	// print the array
-	dynamic_arr_print_char(array2, "array2");
+	dynamic_arr_print(array2, "array2", 'c');
 	printf("\n\n");
 
 	/* --------------------------------------------------------------- */
 	
 	printf("Demo #3\n-------\nExtend the array by n (input a positive integer): ");
 
-	uint_t array2_extension;
-	scanf("%u", &array2_extension);
+	size_t array2_extension;
+	scanf("%lu", &array2_extension);
 
 	// resize the array
 
@@ -61,15 +58,15 @@ int main(int argc, char* argv[]) {
 	}
 
 	// print the array
-	dynamic_arr_print_char(array2, "array2");
+	dynamic_arr_print(array2, "array2", 'c');
 	printf("\n\n");
 
 	/* --------------------------------------------------------------- */
 
 	printf("Demo #4\n-------\nAppend n (input a positive integer) multiples of 5 to the end of the first array (array1): ");
 
-	uint_t array1_extension;
-	scanf("%u", &array1_extension);
+	size_t array1_extension;
+	scanf("%lu", &array1_extension);
 
 	// append n multiples of 5 (array1->length + i) * 5
 	for (int i = 0; i < array1_extension; i++) {
@@ -77,7 +74,7 @@ int main(int argc, char* argv[]) {
 	}
 
 	// print the array
-	dynamic_arr_print_int(array1, "array1");
+	dynamic_arr_print(array1, "array1", 'i');
 	printf("\n\n");
 
 	/* --------------------------------------------------------------- */
@@ -89,19 +86,4 @@ int main(int argc, char* argv[]) {
 	/* --------------------------------------------------------------- */
 
 	return 0;
-}
-
-void dynamic_arr_print_int(dynamic_array_t* array, const char* name) {
-	printf("%s[%u] { ", name, array->length);
-	for (int i = 0; i < array->length; i++) {
-		printf("%i, ", (int)dynamic_arr_at(array, i));
-	}
-	printf("}\n");
-}
-void dynamic_arr_print_char(dynamic_array_t* array, const char* name) {
-	printf("%s[%u] { ", name, array->length);
-	for (int i = 0; i < array->length; i++) {
-		printf("%c, ", (char)dynamic_arr_at(array, i));
-	}
-	printf("}\n");
 }
