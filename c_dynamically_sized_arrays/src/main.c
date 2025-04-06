@@ -11,7 +11,7 @@ int main(int argc, char* argv[]) {
 	scanf("%lu", &array1_length);
 
 	// create a dynamic array
-	dynamic_array_t* array1 = make_dynamic_arr(array1_length);
+	dynamic_array_t* array1 = make_dynamic_arr(array1_length /* array length */);
 
 	// set every i'th element to (i*5)
 	for (int i = 0; i < array1->length; i++) {
@@ -19,7 +19,7 @@ int main(int argc, char* argv[]) {
 	}
 
 	// print the array
-	dynamic_arr_print(array1, "array1", 'i');
+	dynamic_arr_print(array1 /* array (pointer) */, "array1" /* array name (const char*) */, 'i' /* typeflag (b = bool, i = int, c = char) */);
 	printf("\n\n");
 
 	/* --------------------------------------------------------------- */
@@ -50,7 +50,7 @@ int main(int argc, char* argv[]) {
 
 	// resize the array
 
-	dynamic_arr_resize(array2, array2_length + array2_extension);
+	dynamic_arr_resize(array2 /* array (pointer) */, array2_length + array2_extension /* new array size */);
 
 	// extend the array
 	for (int i = array2_length; i < array2->length; i++) {
@@ -70,7 +70,7 @@ int main(int argc, char* argv[]) {
 
 	// append n multiples of 5 (array1->length + i) * 5
 	for (int i = 0; i < array1_extension; i++) {
-		dynamic_arr_append(array1, (array1->length + i) * 5);
+		dynamic_arr_append(array1 /* array (pointer) */, (array1->length + i) * 5 /* value */);
 	}
 
 	// print the array
@@ -80,7 +80,7 @@ int main(int argc, char* argv[]) {
 	/* --------------------------------------------------------------- */
 
 	// clean up the memory used
-	dynamic_arr_destroy(array1);
+	dynamic_arr_destroy(array1 /* array (pointer) */);
 	dynamic_arr_destroy(array2);	
 
 	/* --------------------------------------------------------------- */
