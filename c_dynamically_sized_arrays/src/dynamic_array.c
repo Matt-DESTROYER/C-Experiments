@@ -48,17 +48,13 @@ void dynamic_arr_set(dynamic_array_t* array, size_t index, size_t value) {
  * Resizes a dynamic `array` based on the `length` of the `array`.
  */
 void dynamic_arr_resize(dynamic_array_t* array, size_t length) {
-	void* new_array = malloc(ELEMENT_SIZE * length);
+	void* new_start = realloc(array->start, ELEMENT_SIZE * length);
 
-	size_t elements_to_copy = (array->length < length) ? array->length : length;
-
-	for (size_t i = 0; i < elements_to_copy; i++) {
-		*((size_t*)new_array + i) = *((size_t*)array->start + i);
+	if (new_start == NULL) {
+		return;
 	}
 
-	free(array->start);
-	array->start = new_array;
-
+	array->start =  new_start;
 	array->length = length;
 }
 
