@@ -152,23 +152,26 @@ void dynamic_arr_print(dynamic_array_t* array, const char* name, char typeflag) 
 	printf("%s[%lu] { ", name, array->length);
 	switch (typeflag) {
 		case 'b':
-			for (int i = 0; i < array->length; i++) {
+			for (int i = 0; i < array->length - 1; i++) {
 				printf("%i, ", ((int)dynamic_arr_at(array, i) != 0));
 			}
+			printf("%i", ((int)dynamic_arr_at(array, array->length - 1) != 0));
 			break;
 		case 'i':
-			for (int i = 0; i < array->length; i++) {
+			for (int i = 0; i < array->length - 1; i++) {
 				printf("%i, ", (int)dynamic_arr_at(array, i));
 			}
+			printf("%i", (int)dynamic_arr_at(array, array->length - 1));
 			break;
 		case 'c':
-			for (int i = 0; i < array->length; i++) {
+			for (int i = 0; i < array->length - 1; i++) {
 				printf("'%c', ", (char)dynamic_arr_at(array, i));
 			}
+			printf("'%c'", (char)dynamic_arr_at(array, array->length - 1));
 			break;
 		default:
 			printf("Unknown/unsupported type");
 			break;
 	}
-	printf("}\n");
+	printf(" }\n");
 }
