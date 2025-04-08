@@ -9,7 +9,7 @@
  * Properly initializes a dynamic_array_t structure with a given `length` of elements
  * and a give `size` of each individual element (eg `sizeof(int)`).
  */
-dynamic_array_t* make_dynamic_arr(size_t length) {
+LIB_EXPORT dynamic_array_t* make_dynamic_arr(size_t length) {
 	dynamic_array_t* array = malloc(sizeof(dynamic_array_t));
 
 	if (array == NULL) {
@@ -32,7 +32,7 @@ dynamic_array_t* make_dynamic_arr(size_t length) {
  * 
  * Formats a given `index` by wrapping it around a `length`.
  */
-void format_index(int* index, size_t length) {
+LIB_EXPORT void format_index(int* index, size_t length) {
 	*index %= length;
 
 	if (*index < 0) {
@@ -45,7 +45,7 @@ void format_index(int* index, size_t length) {
  *
  * Returns a pointer to the value at the specified index (type cast to get correct data).
  */
-size_t dynamic_arr_at(dynamic_array_t* array, int index) {
+LIB_EXPORT size_t dynamic_arr_at(dynamic_array_t* array, int index) {
 	if (array == NULL) {
 		return 0;
 	}
@@ -60,7 +60,7 @@ size_t dynamic_arr_at(dynamic_array_t* array, int index) {
  *
  * Sets the value at `index` to `value` which can be cast to read.
  */
-void dynamic_arr_set(dynamic_array_t* array, int index, size_t value) {
+LIB_EXPORT void dynamic_arr_set(dynamic_array_t* array, int index, size_t value) {
 	if (array == NULL) {
 		return;
 	}
@@ -75,7 +75,7 @@ void dynamic_arr_set(dynamic_array_t* array, int index, size_t value) {
  *
  * Resizes a dynamic `array` based on the `length` of the `array`.
  */
-void dynamic_arr_resize(dynamic_array_t* array, size_t length) {
+LIB_EXPORT void dynamic_arr_resize(dynamic_array_t* array, size_t length) {
 	if (array == NULL) {
 		return;
 	}
@@ -96,7 +96,7 @@ void dynamic_arr_resize(dynamic_array_t* array, size_t length) {
  * Appends an element to a dynamic `array` by resizing it to be an element longer
  * and setting the last element to the input `value`.
  */
-void dynamic_arr_append(dynamic_array_t* array, size_t value) {
+LIB_EXPORT void dynamic_arr_append(dynamic_array_t* array, size_t value) {
 	if (array == NULL) {
 		return;
 	}
@@ -110,7 +110,7 @@ void dynamic_arr_append(dynamic_array_t* array, size_t value) {
  *
  * Removes the last element of a dynamic `array` by resizing it to be one shorter.
  */
-void dynamic_arr_pop(dynamic_array_t* array) {
+LIB_EXPORT void dynamic_arr_pop(dynamic_array_t* array) {
 	if (array == NULL || array->length == 0) {
 		return;
 	}
@@ -125,7 +125,7 @@ void dynamic_arr_pop(dynamic_array_t* array) {
  *
  * > Note: This will not clean up any memory used by elements within the array.
  */
-void dynamic_arr_destroy(dynamic_array_t* array) {
+LIB_EXPORT void dynamic_arr_destroy(dynamic_array_t* array) {
 	if (array == NULL) {
 		return;
 	}
@@ -144,7 +144,7 @@ void dynamic_arr_destroy(dynamic_array_t* array) {
  * 
  * Prints a dynamic array assuming the data stored is of type `typeflag`.
  */
-void dynamic_arr_print(dynamic_array_t* array, const char* name, char typeflag) {
+LIB_EXPORT void dynamic_arr_print(dynamic_array_t* array, const char* name, char typeflag) {
 	if (array == NULL) {
 		return;
 	}
@@ -175,3 +175,4 @@ void dynamic_arr_print(dynamic_array_t* array, const char* name, char typeflag) 
 	}
 	printf(" }\n");
 }
+
