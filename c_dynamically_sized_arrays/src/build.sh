@@ -15,4 +15,5 @@ fi
 mkdir -p ../build/$RUNNER_OS/$ARCH
 
 # compile the output
-gcc main.c dynamic_array.c -o ../build/$RUNNER_OS/$ARCH/dynamic_array
+gcc main.c dynamic_array.c -o ../build/$RUNNER_OS/$ARCH/demo/dynamic_array
+gcc dynamic_array.c -c -fPIC -o ../build/$RUNNER_OS/$ARCH/lib/libdynamic_array
