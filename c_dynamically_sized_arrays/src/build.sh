@@ -5,7 +5,7 @@ set -eou pipefail
 # detect the architecture (if not provided)
 # RUNNER_OS=(Linux | Windows | macOS)
 # ARCH=(x32 | x64 | arm | arm64)
-source "../../build_scripts/detect_runner.sh"
+. "../../build_scripts/detect_runner.sh"
 
 # make sure we know the target architecture
 if [ -z "$RUNNER_OS" ] || [ -z "$ARCH" ]; then

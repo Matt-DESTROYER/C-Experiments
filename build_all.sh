@@ -1,4 +1,6 @@
-source ./build_scripts/detect_runner.sh
+#!bin/bash
+
+. ./build_scripts/detect_runner.sh
 
 for d in */ ; do
 	cd "$d"

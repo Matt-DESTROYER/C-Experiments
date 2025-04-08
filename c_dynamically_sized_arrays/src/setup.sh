@@ -3,7 +3,7 @@
 set -eou pipefail
 
 # attempt to build the correct binaries
-source build.sh
+. ./build.sh
 
 if [ "$RUNNER_OS" = "Linux"] || [ "$RUNNER_OS" = "macOS" ]; then
 	cp $INCLUDE_DIR/dynamic_array.h /usr/local/include
