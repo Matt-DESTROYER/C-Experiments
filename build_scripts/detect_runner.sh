@@ -6,7 +6,7 @@ if [ -z "${RUNNER_OS:-}" ]; then
 		export RUNNER_OS="Linux"
 	elif [ "$OSTYPE" = "win32" ] || [ "$OSTYPE" = "msys" ] || [ "$OSTYPE" = "cygwin" ]; then
 		export RUNNER_OS="Windows"
-	elif [ "$OSTYPE" = "darwin" ]; then
+	elif [ "$OSTYPE" = "darwin" ] || [ "$OSTYPE" = "darwin24" ] ; then
 		export RUNNER_OS="macOS"
 	else
 		echo "Failed to autodetect OS..."
