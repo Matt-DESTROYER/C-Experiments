@@ -64,7 +64,7 @@ int main(int argc, char* argv[]) {
 
 	// get the file's size
 
-	long buffer_size = file_size(input_file);
+	long int buffer_size = file_size(input_file);
 	if (buffer_size <= 0) {
 		fprintf(stderr, "Error: input file '%s' is empty.\n", input);
 		fclose(input_file);
@@ -79,7 +79,7 @@ int main(int argc, char* argv[]) {
 		return EXIT_FAILURE;
 	}
 
-	if (fread(buffer, sizeof(char), buffer_size, input_file) == 0) {
+	if (fread(buffer, sizeof(char), buffer_size, input_file) != buffer_size) {
 		fprintf(stderr, "Error: reading input file '%s'.\n", input);
 		fclose(input_file);
 		return EXIT_FAILURE;
