@@ -1,24 +1,5 @@
 #include "pathfindr.h"
-/*
-void adjacent_directions(maze_t* maze, uint_t x, uint_t y) {
-	// left cell
-	if ((x > 0) && (maze_at(maze, x - 1, y) != MAZE_BLOCK)) {
-		maze_set(maze, PATH_RIGHT, x - 1, y);
-	}
-	// right cell
-	if ((x < (maze->width - 1)) && (maze_at(maze, x + 1, y) != MAZE_BLOCK)) {
-		maze_set(maze, PATH_LEFT, x + 1, y);
-	}
-	// top cell
-	if ((y > 0) && (maze_at(maze, x, y - 1) != MAZE_BLOCK)) {
-		maze_set(maze, PATH_DOWN, x, y - 1);
-	}
-	// bottom cell
-	if ((y < (maze->height - 1)) && (maze_at(maze, x, y + 1) != MAZE_BLOCK)) {
-		maze_set(maze, PATH_UP, x, y + 1);
-	}
-}
-*/
+
 bool unexplored_cell(maze_t* maze, uint_t x, uint_t y) {
 	char cell = maze_at(maze, x, y);
 	return (
@@ -27,22 +8,24 @@ bool unexplored_cell(maze_t* maze, uint_t x, uint_t y) {
 		(cell == MAZE_END)
 	);
 }
+
 void explore_cell(maze_t* maze, char value, uint_t x, uint_t y) {
 	maze_set(maze, value, x, y);
 	recurse_adjacents(maze, x, y);
 }
+
 void recurse_adjacents(maze_t* maze, uint_t x, uint_t y) {
-	if ((y > 0) && (unexplored_cell(maze, x, y - 1))) {
-		explore_cell(maze, PATH_DOWN, x, y - 1);
-	}
 	if ((x > 0) && (unexplored_cell(maze, x - 1, y))) {
 		explore_cell(maze, PATH_RIGHT, x - 1, y);
 	}
-	if ((y < (maze->height - 1)) && (unexplored_cell(maze, x, y + 1))) {
-		explore_cell(maze, PATH_UP, x, y + 1);
+	if ((y > 0) && (unexplored_cell(maze, x, y - 1))) {
+		explore_cell(maze, PATH_DOWN, x, y - 1);
 	}
 	if ((x < (maze->width - 1)) && (unexplored_cell(maze, x + 1, y))) {
 		explore_cell(maze, PATH_LEFT, x + 1, y);
+	}
+	if ((y < (maze->height - 1)) && (unexplored_cell(maze, x, y + 1))) {
+		explore_cell(maze, PATH_UP, x, y + 1);
 	}
 }
 
