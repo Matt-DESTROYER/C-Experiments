@@ -7,8 +7,7 @@ typedef struct binary_tree_node {
 
 typedef struct binary_tree {
 	size_t length;
-	binary_tree_node_t* left;
-	binary_tree_node_t* right;
+	binary_tree_node_t* root;
 } binary_tree_t;
 
 binary_tree_t* make_binary_tree();
