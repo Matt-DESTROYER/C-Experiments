@@ -1,4 +1,5 @@
 #include <stdlib.h>     // standard lib
+#include <unistd.h>     // standard POSIX functions
 #include <sys/socket.h> // socket functions
 #include <arpa/inet.h>  // hton functions
 #include <netinet/in.h> // sockaddr structs
@@ -11,7 +12,7 @@
 // domain
 // AF_INET  = IPv4 connections
 // AF_INET6 = IPv6 connections
-#define SOCKET_DOMAIN   AD_INET6
+#define SOCKET_DOMAIN   AF_INET6
 
 // type
 // SOCK_STREAM = TCP  (reliable connection)
@@ -30,17 +31,18 @@ int main(int argc, char* argv[]) {
 		return EXIT_FAILURE;
 	}
 
-	printf("Socket: %i\n", sock);
+	printf("Socket: %i\n", serverSocket);
 
 	// create server socket info
 	struct sockaddr_in serverAddress = {0};
 	serverAddress.sin_family = SOCKET_DOMAIN;
 	serverAddress.sin_addr.s_addr = INADDR_ANY; // enable accepting requests from any IP
-	serverAddress.sin_PORT = htons(PORT);
+	serverAddress.sin_port = htons(PORT);
 
 	// bind socket
 	if (bind(serverSocket, (struct sockaddr *)&serverAddress, sizeof(serverAddress)) == -1) {
 		fprintf(stderr, "bind\n");
+		close(serverSocket);
 		return 1;
 	}
 
@@ -51,8 +53,12 @@ int main(int argc, char* argv[]) {
 	int clientSocket = accept(serverSocket, (struct sockaddr*)&clientAddress, &clientAddrLen);
 	if (clientSocket == -1) {
 		fprintf(stderr, "accept\n");
+		close(clientSocket);
 		return 1;
 	}
+
+	close(clientSocket);
+	close(serverSocket);
 
 	return EXIT_SUCCESS;
 }
