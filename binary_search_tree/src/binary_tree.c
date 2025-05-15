@@ -25,5 +25,6 @@ void destroy_binary_tree(binary_tree_t* tree) {
 		return;
 
 	destroy_binary_tree_node(tree->root);
+	free(tree);
 }
 
