@@ -9,27 +9,27 @@
 #define SUCCESS true
 #define FAILURE false
 
-typedef struct array_pair array_pair_t;
-struct array_pair {
+typedef struct assoc_pair assoc_pair_t;
+struct assoc_pair {
 	char* key;
 	void* value;
 
-	array_pair_t* next;
+	assoc_pair_t* next;
 };
 
-typedef struct associative_array {
+typedef struct assoc_arr {
 	size_t size;
 
-	array_pair_t* head;
-	array_pair_t* tail;
-} associative_array_t;
+	assoc_pair_t* head;
+	assoc_pair_t* tail;
+} assoc_arr_t;
 
-associative_array_t* make_associative_array(void);
-bool                 add_pair(associative_array_t* arr, char* key, void* value);
-bool                 has_pair(associative_array_t* arr, char* key);
-void*                get_pair(associative_array_t* arr, char* key);
-bool                 set_pair(associative_array_t* arr, char* key, void* value);
-bool                 remove_pair(associative_array_t* arr, char* key);
+assoc_arr_t* assoc_make(void);
+bool         assoc_add(assoc_arr_t* arr, char* key, void* value);
+bool         assoc_has(assoc_arr_t* arr, char* key);
+void*        assoc_get(assoc_arr_t* arr, char* key);
+bool         assoc_set(assoc_arr_t* arr, char* key, void* value);
+bool         assoc_remove(assoc_arr_t* arr, char* key);
+void         assoc_free(assoc_arr_t* arr);
 
 #endif
-

@@ -1,6 +1,6 @@
 #include "associative_array.h"
 
-size_t string_length(char* str) {
+static size_t string_length(char* str) {
 	size_t length = 0;
 	while (str[length] != NULL_CHAR) {
 		length++;
@@ -8,7 +8,7 @@ size_t string_length(char* str) {
 	return length;
 }
 
-char* copy_string(char* str) {
+static char* copy_string(char* str) {
 	char* res = malloc(string_length(str) * sizeof(char) + 1);
 	if (res == NULL) {
 		return NULL;
@@ -22,8 +22,8 @@ char* copy_string(char* str) {
 	return res;
 }
 
-associative_array_t* make_associative_array() {
-	associative_array_t* arr = malloc(sizeof(associative_array_t));
+assoc_arr_t* assoc_make() {
+	assoc_arr_t* arr = malloc(sizeof(assoc_arr_t));
 	if (arr == NULL) {
 		return NULL;
 	}
@@ -35,8 +35,8 @@ associative_array_t* make_associative_array() {
 	return arr;
 }
 
-bool add_pair(associative_array_t* arr, char* key, void* value) {
-	array_pair_t* pair = malloc(sizeof(array_pair_t));
+bool assoc_add(assoc_arr_t* arr, char* key, void* value) {
+	assoc_pair_t* pair = malloc(sizeof(assoc_pair_t));
 	if (pair == NULL) {
 		return FAILURE;
 	}
@@ -57,7 +57,7 @@ bool add_pair(associative_array_t* arr, char* key, void* value) {
 	return SUCCESS;
 }
 
-bool key_equals(char* key1, char* key2) {
+static bool key_equals(char* key1, char* key2) {
 	size_t index = 0;
 
 	while (key1[index] != NULL_CHAR &&
@@ -77,8 +77,8 @@ bool key_equals(char* key1, char* key2) {
 	return true;
 }
 
-bool has_pair(associative_array_t* arr, char* key) {
-	array_pair_t* node = arr->head;
+bool assoc_has(assoc_arr_t* arr, char* key) {
+	assoc_pair_t* node = arr->head;
 	if (node == NULL) {
 		return false;
 	}
@@ -99,8 +99,8 @@ bool has_pair(associative_array_t* arr, char* key) {
 	return false;
 }
 
-void* get_pair(associative_array_t* arr, char* key) {
-	array_pair_t* node = arr->head;
+void* assoc_get(assoc_arr_t* arr, char* key) {
+	assoc_pair_t* node = arr->head;
 
 	for (size_t i = 0; i < arr->size; i++) {
 		if (node == NULL) {
@@ -118,8 +118,8 @@ void* get_pair(associative_array_t* arr, char* key) {
 	return NULL;
 }
 
-bool set_pair(associative_array_t* arr, char* key, void* value) {
-	array_pair_t* node = arr->head;
+bool assoc_set(assoc_arr_t* arr, char* key, void* value) {
+	assoc_pair_t* node = arr->head;
 
 	for (size_t i = 0; i < arr->size; i++) {
 		if (node == NULL) {
@@ -140,15 +140,15 @@ bool set_pair(associative_array_t* arr, char* key, void* value) {
 	return FAILURE;
 }
 
-void free_pair(array_pair_t* pair) {
+static void free_pair(assoc_pair_t* pair) {
 	free(pair->key);
 	// Should we free a pointer not malloc'ed by us?
 	//free(pair->value);
 	free(pair);
 }
 
-bool remove_pair(associative_array_t* arr, char* key) {
-	array_pair_t* curr_node = arr->head;
+bool assoc_remove(assoc_arr_t* arr, char* key) {
+	assoc_pair_t* curr_node = arr->head;
 	if (curr_node == NULL) {
 		return FAILURE;
 	} else if (key_equals(curr_node->key, key)) {
@@ -157,7 +157,7 @@ bool remove_pair(associative_array_t* arr, char* key) {
 		return SUCCESS;
 	}
 
-	array_pair_t* prev_node = curr_node;
+	assoc_pair_t* prev_node = curr_node;
 	for (size_t i = 1; i < arr->size - 1; i++) {
 		curr_node = curr_node->next;
 
@@ -175,3 +175,12 @@ bool remove_pair(associative_array_t* arr, char* key) {
 	return FAILURE;
 }
 
+void assoc_free(assoc_arr_t* arr) {
+	assoc_pair_t* node = arr->head;
+	while (node != NULL) {
+		assoc_pair_t* next_node = node->next;
+		free_pair(node);
+		node = next_node;
+	}
+	free(arr);
+}

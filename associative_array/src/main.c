@@ -3,10 +3,8 @@
 
 #include "associative_array.h"
 
-typedef associative_array_t ass_arr_t;
-
 int main(int argc, char* argv[]) {
-	ass_arr_t* arr = make_associative_array();
+	assoc_arr_t* arr = assoc_make();
 
 	int num = 123;
 
@@ -18,4 +16,3 @@ int main(int argc, char* argv[]) {
 
 	return EXIT_SUCCESS;
 }
-
